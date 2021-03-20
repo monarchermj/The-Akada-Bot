@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+const key = require('./token.js');
+
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
 const prefix = '-';
@@ -66,5 +68,5 @@ client.on('message', message => {
     }
 });
 
-client.login('ODIyMDgyMjgyNzgwNjIyODY4.YFNFyQ.JWNU_5EWdTUTyyThiLz5hIR_lOE');
+client.login(key.key);
 
