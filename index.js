@@ -1,12 +1,14 @@
 const Discord = require('discord.js');
 
-const key = require('./token.js');
+require('dotenv').config();
 
 const client = new Discord.Client({ partials: ["MESSAGE", "CHANNEL", "REACTION"]});
 
-const prefix = '-';
+const prefix = process.env.PREFIX;
 
 const fs = require('fs');
+
+const memberCounter = require('./counters/member_counter')
 
 client.commands = new Discord.Collection();
 
@@ -18,8 +20,9 @@ for ( const file of commandFiles){
     client.commands.set(command.name, command);
 }
 
-client.once('ready', () => {
-    console.log('logged in!')
+client.on('ready', () => {
+    console.log('logged in!');
+    memberCounter(client);
 });
 
 client.on('guildMemberAdd', guildMember =>{
@@ -68,5 +71,5 @@ client.on('message', message => {
     }
 });
 
-client.login(key.key);
+client.login(process.env.DISCORD_TOKEN);
 
