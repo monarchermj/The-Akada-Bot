@@ -46,7 +46,7 @@ client.on('message', message => {
         message.channel.send('For bot commands, type **-coms** in **#chat**.\n\nCheck Out The #Help tab!');
     }
     else if(command === 'coms'){
-        message.channel.send('**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
+        message.channel.send('These are the bot commands:\n**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
     }
     else if (command === 'clear') {
         client.commands.get('clear').execute(message, args);
