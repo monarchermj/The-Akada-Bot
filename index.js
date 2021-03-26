@@ -11,70 +11,65 @@ const fs = require('fs');
 const memberCounter = require('./counters/member_counter')
 
 client.commands = new Discord.Collection();
-client.events = new Discord.Collection();
 
-['command_handler', 'event_handler'].forEach(handler =>{
-    require(`./handlers/${handler}`)(client, Discord);
-})
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 
-// const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for ( const file of commandFiles){
+    const command = require(`./commands/${file}`);
 
-// for ( const file of commandFiles){
-//     const command = require(`./commands/${file}`);
+    client.commands.set(command.name, command);
+}
 
-//     client.commands.set(command.name, command);
-// }
+client.on('ready', () => {
+    console.log('AKADA BOT IS ONLINE!');
+    memberCounter(client);
+});
 
-// client.on('ready', () => {
-//     console.log('logged in!');
-//     memberCounter(client);
-// });
+client.on('guildMemberAdd', guildMember =>{
+    let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Members');
 
-// client.on('guildMemberAdd', guildMember =>{
-//     let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Members');
+    guildMember.roles.add(welcomeRole);
+    guildMember.guild.channels.cache.get('821320875751112724').send(`Welcome! <@${guildMember.user.id}>\nMake sure to check out the #Roles channel to get a Role assigned to you.\nAlso check out the #Help channel for any queries!`);
+});
 
-//     guildMember.roles.add(welcomeRole);
-//     guildMember.guild.channels.cache.get('821320875751112724').send(`Welcome! <@${guildMember.user.id}>\nMake sure to check out the #Roles channel to get a Role assigned to you.\nAlso check out the #Help channel for any queries!`);
-// });
-
-// client.on('message', message => {
+client.on('message', message => {
     
-//     if(!message.content.startsWith(prefix) || message.author.bot) return;
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
     
-    // const args = message.content.slice(prefix.length).split(/ +/);
-    // const command = args.shift().toLowerCase();
+    const args = message.content.slice(prefix.length).split(/ +/);
+    const command = args.shift().toLowerCase();
 
-    // if(command === 'hello'){
-    //     message.reply('Hello!');
-    // }
-    // else if(command === 'help'){
-    //     message.channel.send('For bot commands, type **-coms** in **#chat**.\n\nCheck Out The #Help tab!');
-    // }
-    // else if(command === 'coms'){
-    //     message.channel.send('These are the bot commands:\n**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
-    // }
-    // else if (command === 'clear') {
-    //     client.commands.get('clear').execute(message, args);
-    // }
-    // else if (command === 'links') {
-    //     message.channel.send('Check out the #Social tab!');
-    // }
-    // else if (command === 'embed') {
-    //     message.channel.send('https://imgur.com/mzFyb4X.png');
-    //     client.commands.get('embed').execute(message, args, Discord);
-    // }
-    // else if (command === 'embed_social') {
-    //     message.channel.send('https://imgur.com/ekypHqG.png');
-    //     client.commands.get('embed_social').execute(message, args, Discord);
-    // }
-    // else if (command === 'embed_about') {
-    //     message.channel.send('https://imgur.com/Za1co8P.png');
-    //     client.commands.get('embed_about').execute(message, args, Discord);
-    // }
-    // else if (command === 'reactionrole') {
-    //     client.commands.get('reactionrole').execute(message, args, Discord, client);
-    // }
-// });
+    if(command === 'hello'){
+        message.reply('Hello!');
+    }
+    else if(command === 'help'){
+        message.channel.send('For bot commands, type **-coms** in **#chat**.\n\nCheck Out The #Help tab!');
+    }
+    else if(command === 'coms'){
+        message.channel.send('These are the bot commands:\n**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
+    }
+    else if (command === 'clear') {
+        client.commands.get('clear').execute(message, args);
+    }
+    else if (command === 'links') {
+        message.channel.send('Check out the #Social tab!');
+    }
+    else if (command === 'embed') {
+        message.channel.send('https://imgur.com/mzFyb4X.png');
+        client.commands.get('embed').execute(message, args, Discord);
+    }
+    else if (command === 'embed_social') {
+        message.channel.send('https://imgur.com/ekypHqG.png');
+        client.commands.get('embed_social').execute(message, args, Discord);
+    }
+    else if (command === 'embed_about') {
+        message.channel.send('https://imgur.com/Za1co8P.png');
+        client.commands.get('embed_about').execute(message, args, Discord);
+    }
+    else if (command === 'reactionrole') {
+        client.commands.get('reactionrole').execute(message, args, Discord, client);
+    }
+});
 
 client.login(process.env.DISCORD_TOKEN);
 

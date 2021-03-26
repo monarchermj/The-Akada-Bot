@@ -3,7 +3,7 @@ const { Emoji } = require("discord.js");
 module.exports = {
     name: 'embed_social',
     description: 'Used to embed message in social tab',
-    execute(client, message, args, Discord) {
+    execute(message, args, Discord) {
 
         const Embed = new Discord.MessageEmbed()
         
