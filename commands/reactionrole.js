@@ -20,7 +20,7 @@ module.exports = {
                 + `${pcEmoji} for PC Gamers\n`
                 + `${xboxEmoji} for XBOX Gamers\n`
                 + `${psEmoji} for PlayStation Gamers\n`
-                + `${otherEmoji} for PlayStation Gamers\n`);
+                + `${otherEmoji} for Any Other Platform Gamers\n`);
         let messageEmbed = await message.channel.send(embed);
         messageEmbed.react(pcEmoji);
         messageEmbed.react(xboxEmoji);
