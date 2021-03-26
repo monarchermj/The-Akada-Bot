@@ -1,7 +1,7 @@
 module.exports = {
     name: 'embed',
     description: 'Used to embed messages in help tab',
-    execute(message, args, Discord) {
+    execute(client, message, args, Discord) {
         
         const Embed1 = new Discord.MessageEmbed()
         .setColor('#ff3030')
