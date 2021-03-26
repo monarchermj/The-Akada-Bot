@@ -1,7 +1,7 @@
 module.exports = {
     name: 'reactionrole',
     description: "Allows to assign role by reacting to a message!",
-    async execute(client, message, args, Discord){
+    async execute(message, args, Discord, client){
         const channel = '822505377463664671';
         const pcRole = message.guild.roles.cache.find(role => role.name === "PC");
         const xboxRole = message.guild.roles.cache.find(role => role.name === "XBOX");
