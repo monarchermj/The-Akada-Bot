@@ -6,10 +6,12 @@ module.exports = {
         const pcRole = message.guild.roles.cache.find(role => role.name === "PC");
         const xboxRole = message.guild.roles.cache.find(role => role.name === "XBOX");
         const psRole = message.guild.roles.cache.find(role => role.name === "PlayStation");
+        const otherRole = message.guild.roles.cache.find(role => role.name === "Other");
 
         const pcEmoji = '🖥️';
         const xboxEmoji = '🎮';
         const psEmoji = '🕹️';
+        const otherEmoji = '📱';
 
         let embed  = new Discord.MessageEmbed()
             .setColor('#FF0000')
@@ -17,11 +19,13 @@ module.exports = {
             .setDescription('Choosing a platform will allow you to interact with people with similar interests.\n\n'
                 + `${pcEmoji} for PC Gamers\n`
                 + `${xboxEmoji} for XBOX Gamers\n`
-                + `${psEmoji} for PlayStation Gamers\n`);
+                + `${psEmoji} for PlayStation Gamers\n`
+                + `${otherEmoji} for PlayStation Gamers\n`);
         let messageEmbed = await message.channel.send(embed);
         messageEmbed.react(pcEmoji);
         messageEmbed.react(xboxEmoji);
         messageEmbed.react(psEmoji);
+        messageEmbed.react(otherEmoji);
 
         client.on('messageReactionAdd', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch();
@@ -38,6 +42,9 @@ module.exports = {
                 }
                 else if (reaction.emoji.name === psEmoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.add(psRole);
+                }
+                else if (reaction.emoji.name === otherEmoji) {
+                    await reaction.message.guild.members.cache.get(user.id).roles.add(otherRole);
                 }
             } else {
                 return;
@@ -58,6 +65,9 @@ module.exports = {
                 }
                 else if (reaction.emoji.name === psEmoji) {
                     await reaction.message.guild.members.cache.get(user.id).roles.remove(psRole);
+                }
+                else if (reaction.emoji.name === otherEmoji) {
+                    await reaction.message.guild.members.cache.get(user.id).roles.remove(otherRole);
                 }
             } else {
                 return;
