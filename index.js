@@ -29,7 +29,7 @@ client.on('guildMemberAdd', guildMember =>{
     let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Members');
 
     guildMember.roles.add(welcomeRole);
-    guildMember.guild.channels.cache.get('821320875751112724').send(`Welcome! <@${guildMember.user.id}>\nMake sure to check out the #🧬roles channel to get a Role assigned to you.\nUse command **-coms** to check out the Akada Bot commands.\nAlso check out the #❓help channel for any queries!`);
+    guildMember.guild.channels.cache.get('821320875751112724').send(`Welcome! <@${guildMember.user.id}>\nMake sure to check out the #🧬roles channel to get a Role assigned to you.\nUse command **-coms** to check out the Akada Bot commands.\nAlso check out the <821732987779022880> channel for any queries!`);
 });
 
 client.on('message', message => {
@@ -43,7 +43,7 @@ client.on('message', message => {
         message.reply('Hello!');
     }
     else if(command === 'help'){
-        message.channel.send('For bot commands, type **-coms** in **#📃chat**.\n\nCheck Out The #❓help tab!');
+        message.channel.send('For bot commands, type **-coms** in **#📃chat**.\n\nCheck Out The <821732987779022880> tab!');
     }
     else if(command === 'coms'){
         message.channel.send('These are the bot commands:\n**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
