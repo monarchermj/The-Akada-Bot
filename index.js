@@ -43,7 +43,7 @@ client.on('message', message => {
         message.reply('Hello!');
     }
     else if(command === 'help'){
-        message.channel.send('For bot commands, type **-coms** in **#📃chat**.\n\nCheck Out The <821732987779022880> tab!');
+        message.channel.send('For bot commands, type **-coms** in **#📃chat**.\n\nCheck Out The <#822338603719720995> tab!');
     }
     else if(command === 'coms'){
         message.channel.send('These are the bot commands:\n**-hello**\n**-help**\n**-coms**\n**-clear**\n**-links**');
