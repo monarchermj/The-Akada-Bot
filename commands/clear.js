@@ -8,7 +8,7 @@ module.exports = {
         if(args[0]<1) return message.reply("You cannot delete less than one message!");
 
         await message.channel.messages.fetch({limit: args[0]}).then(messages => {
-            message.channel.bulkDelete(messages);
+            message.channel.bulkDelete(messages+1);
             message.reply("Deleted "+args[0]+" messages!");
         })
     }
